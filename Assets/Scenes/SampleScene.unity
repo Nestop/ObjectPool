@@ -509,7 +509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1050534367, guid: c7af7398fceba5f4dba6c732d263ab5e, type: 3}
       propertyPath: spreadAngle
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1050534367, guid: c7af7398fceba5f4dba6c732d263ab5e, type: 3}
       propertyPath: explosionEffects.Array.data[0]
@@ -532,15 +532,15 @@ PrefabInstance:
       objectReference: {fileID: 1050534365}
     - target: {fileID: 1050534367, guid: c7af7398fceba5f4dba6c732d263ab5e, type: 3}
       propertyPath: fireSpeed
-      value: 4.62
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1050534367, guid: c7af7398fceba5f4dba6c732d263ab5e, type: 3}
       propertyPath: poolSizeOnEffect
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1050534367, guid: c7af7398fceba5f4dba6c732d263ab5e, type: 3}
       propertyPath: badPool
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1050534367, guid: c7af7398fceba5f4dba6c732d263ab5e, type: 3}
       propertyPath: expandable
@@ -548,7 +548,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1050534367, guid: c7af7398fceba5f4dba6c732d263ab5e, type: 3}
       propertyPath: shotsAtTime
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1050534367, guid: c7af7398fceba5f4dba6c732d263ab5e, type: 3}
       propertyPath: explosionEffectPrefabs.Array.data[0]
@@ -570,6 +570,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8816935011399337474, guid: 96500498cf0ec8b42942e20f5c6eaf52,
         type: 3}
+    - target: {fileID: 1050534367, guid: c7af7398fceba5f4dba6c732d263ab5e, type: 3}
+      propertyPath: fillAtStart
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2369792776486879163, guid: c7af7398fceba5f4dba6c732d263ab5e,
         type: 3}
       propertyPath: m_LocalPosition.x

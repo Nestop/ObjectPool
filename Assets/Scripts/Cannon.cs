@@ -20,7 +20,6 @@ public class Cannon : MonoBehaviour
     [SerializeField] private bool fillAtStart = true;
     [SerializeField] private bool expandable = true;
     [SerializeField] private bool badPool = false;
-    [Header("Damage screens pool")]
 
     private List<ObjectPool<ParticleSystem>> _particlePools;
     private int _explosionEffectsCount;

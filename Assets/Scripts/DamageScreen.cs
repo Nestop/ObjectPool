@@ -13,15 +13,12 @@ namespace DefaultNamespace
         [SerializeField] private Image background;
         [SerializeField] private TextMeshProUGUI damageLabel;
         [SerializeField] private RectTransform ui;
-        
-        private Color _backgroundStartColor;
-        private Color _damageLabelStartColor;
+        [SerializeField] private Color backgroundStartColor;
+        [SerializeField] private Color damageLabelStartColor;
         
         private void Start()
         {
             ui.gameObject.SetActive(false);
-            _backgroundStartColor = background.color;
-            _damageLabelStartColor = damageLabel.color;
         }
 
         public void ShowDamage(int damage, float timeForShow, Vector3 position, Vector3 lookAt, Action onExit = null)
@@ -36,8 +33,8 @@ namespace DefaultNamespace
         
         private IEnumerator ExitAnimation(float timeForShow, Action onExit = null)
         {
-            background.color = _backgroundStartColor;
-            damageLabel.color = _damageLabelStartColor;
+            background.color = backgroundStartColor;
+            damageLabel.color = damageLabelStartColor;
             
             var deltaPosY = LiftingHeightInUnit / timeForShow;
             var deltaBackAlpha = background.color.a / timeForShow;
