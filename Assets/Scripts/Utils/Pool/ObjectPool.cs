@@ -1,64 +1,74 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Utils.Pool
 {
-    public class ObjectPool<T> where T : Object
+    public class ObjectPool<T> : IPool<T> where T : MonoBehaviour, IPoolable
     {
-        protected List<T> _objects;
-        private Stack<T> _inactiveObjects;
-        private bool _expandable;
-        private T _object;
+        private readonly List<T> _objects;
+        private readonly Stack<T> _inactiveObjects;
+        private readonly Transform _container;
+        private readonly T _prefab;
+        private readonly bool _expandable;
 
-        protected int ObjectCount => _objects.Count;
-        
-        public ObjectPool(T obj, int poolSize = 0, bool fillAtStart = false, bool expandable = false)
+        public ObjectPool(Transform container, T prefab, int poolSize = 0, bool fillAtStart = false, bool expandable = false)
         {
-            _object = obj;
+            var poolContainer = new GameObject(prefab.gameObject.name).transform;
+            poolContainer.parent = container;
+            _container = poolContainer;
+            
+            _prefab = prefab;
             _objects = new List<T>(poolSize);
             _inactiveObjects = new Stack<T>(poolSize);
             
             if (fillAtStart && poolSize > 0)
-            {
-                for (int i = 0; i < poolSize; i++)
-                {
-                    _objects.Add(Object.Instantiate(_object));
-                    _inactiveObjects.Push(_objects[i]);
-                }
-            }
+                for (var i = 0; i < poolSize; i++)
+                    DeactivateObject(InitializeObject());
 
             _expandable = expandable;
         }
-        
+
         public T GetObject()
         {
-            if (_inactiveObjects.Count > 0)
-            {
-                return _inactiveObjects.Pop();
-            }
-            else
-            {
-                if (_expandable)
-                {
-                    var obj = Object.Instantiate(_object);
-                    _objects.Add(obj);
-                    return obj;  
-                }
-                else
-                {
-                    return GetActiveObjectStrategy();  
-                }
-            }
+            if (!_inactiveObjects.Any()) 
+                return _expandable ? InitializeObject() : GetActiveObjectStrategy();
+            
+            var obj = _inactiveObjects.Pop();
+            obj.gameObject.SetActive(true);
+            return obj;
+        }
+
+        private T InitializeObject()
+        {
+            var obj = Object.Instantiate(_prefab, _container);
+            obj.ObjectDeactivation += DeactivateObject;
+            _objects.Add(obj);
+            
+            return obj;
         }
 
         protected virtual T GetActiveObjectStrategy()
         {
-            return _objects[Random.Range(0, ObjectCount)];
+            return null;
         }
 
-        public void DeactivateObject(T obj)
+        public void DeactivateAllObjects()
         {
+            _inactiveObjects.Clear();
+            
+            foreach (var obj in _objects)
+                DeactivateObject(obj);
+        }
+        
+        private void DeactivateObject(IPoolable obj)
+        {
+            DeactivateObject(obj as T);
+        }
+        
+        private void DeactivateObject(T obj)
+        {
+            obj.gameObject.SetActive(false);
             _inactiveObjects.Push(obj);
         }
     }
