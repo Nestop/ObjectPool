@@ -467,6 +467,7 @@ MonoBehaviour:
   poolSizeOnEffect: 0
   fillAtStart: 0
   expandable: 1
+  badPool: 0
 --- !u!4 &1157832507
 Transform:
   m_ObjectHideFlags: 0
@@ -625,6 +626,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1138333425}
     m_Modifications:
+    - target: {fileID: 1050534367, guid: c7af7398fceba5f4dba6c732d263ab5e, type: 3}
+      propertyPath: shotLoopTimeInSeconds
+      value: 0.001
+      objectReference: {fileID: 0}
     - target: {fileID: 2369792776486879163, guid: c7af7398fceba5f4dba6c732d263ab5e,
         type: 3}
       propertyPath: m_LocalPosition.x
